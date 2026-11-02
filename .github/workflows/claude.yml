@@ -12,7 +12,9 @@ on:
 
 jobs:
   claude:
+    # Disabled: remove `false &&` to re-enable
     if: |
+      false &&
       contains(fromJSON('["toinguyen-agilityio","huypham-agilityio"]'), github.actor) &&
       ((github.event_name == 'issue_comment' && contains(github.event.comment.body, '@claude')) ||
       (github.event_name == 'pull_request_review_comment' && contains(github.event.comment.body, '@claude')) ||
