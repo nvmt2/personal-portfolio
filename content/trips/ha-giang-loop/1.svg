@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" width="1200" height="900" role="img" aria-label="Illustration of layered mountain ridges at sunrise">
+<defs><linearGradient id="s" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd9a0"/><stop offset="1" stop-color="#f7a072"/></linearGradient></defs>
+<rect width="1200" height="900" fill="url(#s)"/>
+<circle cx="603" cy="229" r="70" fill="#fff3d6" opacity="0.9"/>
+<g transform="translate(0 300)"><path d="M0 600 L0 388 L60 316 L120 365 L180 330 L240 426 L300 415 L360 420 L420 397 L480 353 L540 324 L600 424 L660 307 L720 399 L780 410 L840 300 L900 414 L960 368 L1020 358 L1080 326 L1140 381 L1200 307 L1200 600 Z" fill="#7c8f6b"/><path d="M0 600 L0 451 L80 433 L160 513 L240 499 L320 431 L400 478 L480 517 L560 457 L640 484 L720 433 L800 497 L880 458 L960 486 L1040 493 L1120 500 L1200 459 L1200 600 Z" fill="#4d6a4a"/></g>
+<rect y="780" width="1200" height="120" fill="#4d6a4a"/>
+</svg>

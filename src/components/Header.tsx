@@ -1,12 +1,12 @@
-import { navLinks, profile } from '@/content';
+import { navLinks, profile, tripsSection } from '@/content';
 import { getBasePath } from '@/lib/base-path';
 import { ThemeToggle } from './ThemeToggle';
 import { Container } from './Container';
 import { HeaderOffset } from './HeaderOffset';
 
 type HeaderProps = {
-  // The page the header sits on. On /story, section links point back to the home page.
-  current?: 'story';
+  // The page the header sits on. Off the home page, section links point back to it.
+  current?: 'story' | 'trips';
 };
 
 // Five links must fit one row from 320px up to 480px, so the padding and size drop below 481px.
@@ -24,13 +24,15 @@ const navLinkCurrent = `text-accent shadow-[inset_0_-2px_0_0_var(--color-accent)
 export function Header({ current }: HeaderProps = {}) {
   const base = getBasePath();
   const onStory = current === 'story';
-  const brandHref = onStory ? `${base}/` : '#top';
+  const offHome = current !== undefined;
+  const onTrips = current === 'trips';
+  const brandHref = offHome ? `${base}/` : '#top';
 
   // Root-relative links get the base path (GitHub Pages serves from a sub-path). Section
-  // hashes stay bare on home and point to the home page when the header sits on /story.
+  // hashes stay bare on home and point to the home page when the header sits on another page.
   const hrefFor = (href: string) => {
     if (href.startsWith('/')) return `${base}${href}`;
-    return onStory ? `${base}/${href}` : href;
+    return offHome ? `${base}/${href}` : href;
   };
 
   return (
@@ -42,6 +44,14 @@ export function Header({ current }: HeaderProps = {}) {
             className="text-text mr-auto inline-flex min-h-11 items-center text-[18px] font-bold no-underline"
           >
             {profile.name}
+          </a>
+          {/* Trips sits next to the name, not in the Sections nav: six links would not fit 320px. */}
+          <a
+            href={`${base}/trips`}
+            className={onTrips ? navLinkCurrent : navLink}
+            aria-current={onTrips ? 'page' : undefined}
+          >
+            {tripsSection.navLabel}
           </a>
           <nav
             aria-label="Sections"

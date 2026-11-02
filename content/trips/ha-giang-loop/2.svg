@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" width="1200" height="900" role="img" aria-label="Illustration of a misty valley under a pale sky">
+<defs><linearGradient id="s" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#bcd8ec"/><stop offset="1" stop-color="#e7f1f6"/></linearGradient></defs>
+<rect width="1200" height="900" fill="url(#s)"/>
+<circle cx="772" cy="262" r="70" fill="#ffffff" opacity="0.9"/>
+<g transform="translate(0 300)"><path d="M0 600 L0 435 L60 314 L120 323 L180 321 L240 392 L300 343 L360 378 L420 364 L480 354 L540 309 L600 340 L660 410 L720 400 L780 430 L840 395 L900 413 L960 428 L1020 368 L1080 309 L1140 307 L1200 393 L1200 600 Z" fill="#6f8da1"/><path d="M0 600 L0 479 L80 470 L160 478 L240 484 L320 497 L400 451 L480 501 L560 452 L640 460 L720 459 L800 433 L880 452 L960 471 L1040 452 L1120 447 L1200 495 L1200 600 Z" fill="#3f5b6e"/></g>
+<rect y="780" width="1200" height="120" fill="#3f5b6e"/>
+</svg>
