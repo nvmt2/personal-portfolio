@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" width="1200" height="900" role="img" aria-label="Illustration of dusk over dark hills">
+<defs><linearGradient id="s" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f6b8a8"/><stop offset="1" stop-color="#d98a9b"/></linearGradient></defs>
+<rect width="1200" height="900" fill="url(#s)"/>
+<circle cx="472" cy="236" r="70" fill="#ffe6c7" opacity="0.9"/>
+<g transform="translate(0 300)"><path d="M0 600 L0 395 L60 333 L120 394 L180 421 L240 316 L300 303 L360 420 L420 366 L480 359 L540 349 L600 420 L660 421 L720 401 L780 338 L840 359 L900 338 L960 399 L1020 303 L1080 316 L1140 340 L1200 310 L1200 600 Z" fill="#8a5a6f"/><path d="M0 600 L0 469 L80 433 L160 464 L240 490 L320 506 L400 479 L480 484 L560 480 L640 503 L720 486 L800 447 L880 476 L960 442 L1040 434 L1120 447 L1200 493 L1200 600 Z" fill="#5b3a52"/></g>
+<rect y="780" width="1200" height="120" fill="#5b3a52"/>
+</svg>

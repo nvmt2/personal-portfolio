@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" width="1200" height="900" role="img" aria-label="Illustration of lavender hills under a hazy sky">
+<defs><linearGradient id="s" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e4d7f0"/><stop offset="1" stop-color="#f7eef7"/></linearGradient></defs>
+<rect width="1200" height="900" fill="url(#s)"/>
+<circle cx="453" cy="222" r="70" fill="#fff3fb" opacity="0.9"/>
+<g transform="translate(0 300)"><path d="M0 600 L0 419 L60 365 L120 391 L180 307 L240 419 L300 363 L360 313 L420 340 L480 328 L540 395 L600 420 L660 363 L720 397 L780 326 L840 363 L900 303 L960 355 L1020 404 L1080 371 L1140 346 L1200 399 L1200 600 Z" fill="#a58bb8"/><path d="M0 600 L0 460 L80 439 L160 447 L240 509 L320 509 L400 486 L480 446 L560 446 L640 430 L720 430 L800 456 L880 457 L960 451 L1040 451 L1120 467 L1200 470 L1200 600 Z" fill="#7b6392"/></g>
+<rect y="780" width="1200" height="120" fill="#7b6392"/>
+</svg>

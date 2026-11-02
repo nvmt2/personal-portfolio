@@ -113,6 +113,8 @@ _TBD. List environment variables here if the app needs any._
 my-portfolio/
 ├── .claude/       # shared Claude Code config (see .claude/README.md)
 ├── .github/       # workflows and CODEOWNERS
+├── content/trips/ # one folder per trip: index.md + photos (see "Adding a trip")
+├── scripts/       # build helpers (copies trip photos to public/)
 ├── src/
 │   ├── app/       # Next.js App Router: layout, page, global CSS, icons
 │   ├── components/ # React components
@@ -120,6 +122,35 @@ my-portfolio/
 ├── tests/         # Playwright tests and helpers
 └── README.md
 ```
+
+## 🧳 Adding a trip
+
+Trips live at `/trips` and `/trips/<slug>`. To add one, create a folder `content/trips/<slug>/` (the folder name becomes the URL) with an `index.md` and its photos next to it, then run `pnpm build`. No code changes are needed.
+
+```md
+---
+title: Chasing buckwheat flowers on the Hà Giang Loop
+date: 2025-10-12 # start date, newest trips come first
+days: 4
+summary: One or two sentences for the card.
+difficulty: 4 # integer 1-5
+beauty: 5 # integer 1-5
+tiktok: https://www.tiktok.com/@you/video/123 # optional, must be a tiktok.com link
+cover: 1.jpg # must also be listed in photos
+photos:
+  - { file: 1.jpg, alt: Describe the photo for screen readers }
+itinerary: # at least one stop; lat/lng become the map pins later
+  - { day: 1, title: Hà Nội to Hà Giang, place: Hà Giang, lat: 22.82, lng: 104.98 }
+---
+
+The story in Markdown. No links in the story: put the TikTok link in the frontmatter.
+```
+
+- A mistake (rating outside 1-5, missing photo or alt text, latitude out of range, a link that is not tiktok.com) fails the build and names the file and field.
+- Keep photos small, about 2-3 per trip and under 500 KB each. There is no image resizing yet, and bigger files only trigger a build warning.
+- The Zalo button text and link are in `src/content.ts` (`tripsSection.zaloHref`, set it to `https://zalo.me/<your phone number>`).
+- The two trips in `content/trips/` are demo content (`DEMO-CONTENT`); delete them when you add your own.
+- Not built yet: the map, image resizing, and filtering by difficulty and beauty (see the plan issue).
 
 ## 🧪 Testing
 

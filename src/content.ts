@@ -358,3 +358,46 @@ export const storySection = {
       'The story of Jordan Ellis, a frontend engineer: the journey so far and the hobbies that keep them going.',
   },
 } satisfies StorySection;
+
+export type TripsSection = {
+  navLabel: string;
+  pageTitle: string;
+  title: string;
+  intro: string;
+  empty: string;
+  daysLabel: string;
+  difficultyLabel: string;
+  beautyLabel: string;
+  ratingScale: string;
+  readStoryLabel: string;
+  itineraryTitle: string;
+  dayLabel: string;
+  photosTitle: string;
+  tiktokLabel: string;
+  zaloLabel: string;
+  zaloHref: string;
+  backLabel: string;
+};
+
+export const tripsSection = {
+  navLabel: 'Trips',
+  pageTitle: 'Trips - Jordan Ellis',
+  title: 'Trips',
+  // DEMO-CONTENT: replace with your own content
+  intro:
+    'Stories from the road: where I went, what it was like, and a day-by-day route you can follow.',
+  empty: 'No trips yet. Check back soon.',
+  daysLabel: 'days',
+  difficultyLabel: 'Difficulty',
+  beautyLabel: 'Beauty',
+  ratingScale: 'out of 5',
+  readStoryLabel: 'Read the story',
+  itineraryTitle: 'Route, day by day',
+  dayLabel: 'Day',
+  photosTitle: 'Photos',
+  tiktokLabel: 'Watch on TikTok',
+  zaloLabel: 'Join me on Zalo',
+  // DEMO-CONTENT: replace with your own Zalo link, https://zalo.me/<your phone number>
+  zaloHref: 'https://zalo.me/0000000000',
+  backLabel: 'All trips',
+} satisfies TripsSection;
