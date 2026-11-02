@@ -16,6 +16,8 @@ permissions:
 
 jobs:
   build:
+    # Disabled: remove this `if` to re-enable
+    if: false
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -45,6 +47,8 @@ jobs:
 
   deploy:
     needs: build
+    # Disabled: remove this `if` to re-enable
+    if: false
     runs-on: ubuntu-latest
     permissions:
       pages: write
