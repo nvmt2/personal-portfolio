@@ -1,0 +1,100 @@
+name: Claude Review
+
+on:
+  pull_request:
+    types: [opened, synchronize, ready_for_review, reopened]
+
+# Queue runs per PR, so a follow-up never starts while the first review is still posting
+concurrency:
+  group: claude-review-${{ github.event.pull_request.number }}
+  cancel-in-progress: false
+
+jobs:
+  review:
+    # Disabled: remove `false &&` to re-enable
+    if: |
+      false &&
+      github.event.pull_request.draft == false &&
+      contains(fromJSON('["toinguyen-agilityio","huypham-agilityio"]'), github.actor)
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+      id-token: write
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          fetch-depth: 1
+
+      # First run: no comment from claude[bot] on the PR yet. Later runs only re-check its own threads.
+      - id: mode
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR: ${{ github.event.pull_request.number }}
+        run: |
+          threads=$(gh api "repos/$GITHUB_REPOSITORY/pulls/$PR/comments" --paginate \
+            --jq '[.[] | select(.user.login == "claude[bot]" and .in_reply_to_id == null)] | length' \
+            | awk '{s+=$1} END {print s+0}')
+          summaries=$(gh api "repos/$GITHUB_REPOSITORY/issues/$PR/comments" --paginate \
+            --jq '[.[] | select(.user.login == "claude[bot]")] | length' \
+            | awk '{s+=$1} END {print s+0}')
+          if [ "$threads" -eq 0 ] && [ "$summaries" -eq 0 ]; then
+            echo "mode=first" >> "$GITHUB_OUTPUT"
+          elif [ "$threads" -gt 0 ]; then
+            echo "mode=followup" >> "$GITHUB_OUTPUT"
+          else
+            echo "mode=skip" >> "$GITHUB_OUTPUT"
+          fi
+          echo "threads=$threads summaries=$summaries"
+
+      - if: steps.mode.outputs.mode == 'first'
+        uses: anthropics/claude-code-action@925afb53776cf1a2b738c6bdbed37b4d4000ef13 # v1
+        with:
+          # Each user pays with their own token; an unknown or missing token resolves to ''
+          claude_code_oauth_token: ${{
+            github.actor == 'toinguyen-agilityio' && secrets.CLAUDE_CODE_OAUTH_TOKEN ||
+            github.actor == 'huypham-agilityio' && secrets.CLAUDE_CODE_OAUTH_MAINTAINER_TOKEN ||
+            '' }}
+          # Inline comments open review threads, which "Require conversation resolution" blocks merge on
+          prompt: |
+            Review PR #${{ github.event.pull_request.number }} in ${{ github.repository }}.
+            This is the only full review this PR gets, so list every finding now.
+            Focus on bugs, security, and the conventions in CONTRIBUTING.md.
+            Post every finding as an INLINE comment on the exact line.
+            Keep each comment to 10-30 words, in this shape:
+              Don't <what is wrong>. Do <one suggestion> instead, because <one reason>.
+            One issue per comment. No headings, no praise, no restating the code.
+            Add a ```suggestion block only when the fix is a few lines.
+            Skip nitpicks that lint or prettier already catch.
+            End with one summary comment of at most 3 lines.
+          claude_args: |
+            --allowedTools "mcp__github_inline_comment__create_inline_comment,Bash(gh pr diff:*),Bash(gh pr view:*),Bash(gh pr comment:*)"
+
+      - if: steps.mode.outputs.mode == 'followup'
+        uses: anthropics/claude-code-action@925afb53776cf1a2b738c6bdbed37b4d4000ef13 # v1
+        with:
+          claude_code_oauth_token: ${{
+            github.actor == 'toinguyen-agilityio' && secrets.CLAUDE_CODE_OAUTH_TOKEN ||
+            github.actor == 'huypham-agilityio' && secrets.CLAUDE_CODE_OAUTH_MAINTAINER_TOKEN ||
+            '' }}
+          prompt: |
+            PR #${{ github.event.pull_request.number }} in ${{ github.repository }} was already reviewed.
+            Do NOT review the PR again: no new inline comments, no new review, no summary comment.
+            Only re-check your own review threads.
+
+            1. List the threads with:
+               gh api graphql -F owner=${{ github.repository_owner }} -F name=${{ github.event.repository.name }} -F pr=${{ github.event.pull_request.number }} -f query='query($owner:String!,$name:String!,$pr:Int!){repository(owner:$owner,name:$name){pullRequest(number:$pr){reviewThreads(first:100){nodes{id isResolved isOutdated path line originalLine comments(first:50){nodes{databaseId author{login} body createdAt}}}}}}}'
+               Keep only threads whose first comment is by claude (claude[bot]).
+            2. For each thread, read the current code at its path in this checkout (line, or near originalLine
+               when the thread is outdated), and the dev's replies.
+               - Not touched yet (code unchanged and no dev reply): skip it.
+               - Last comment is yours and nothing changed since your reply: skip it.
+               - Fixed well, or the dev's reply gives a sound reason not to change it:
+                 resolve it if it is open (mutation resolveReviewThread(input:{threadId:"<id>"})). Do not reply.
+               - Fix is wrong or incomplete, or the reason is not sound:
+                 reply in that thread with 10-30 words saying what is still wrong and one suggestion:
+                   gh api repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}/comments/<first comment databaseId>/replies -f body='...'
+                 If the dev already resolved it, unresolve it (mutation unresolveReviewThread) so it blocks merge.
+            Say nothing anywhere else.
+          claude_args: |
+            --allowedTools "Bash(gh api graphql:*),Bash(gh api repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}/comments:*)"

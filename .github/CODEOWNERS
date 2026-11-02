@@ -1,0 +1,10 @@
+# Changes to shared Claude config need the repo owner's review
+/.claude/ @toinguyen-agilityio
+/CLAUDE.md @toinguyen-agilityio
+/.mcp.json @toinguyen-agilityio
+/.github/workflows/claude.yml @toinguyen-agilityio
+/.github/workflows/claude-review.yml @toinguyen-agilityio
+
+# Team conventions
+/CONTRIBUTING.md @toinguyen-agilityio
+/.github/pull_request_template.md @toinguyen-agilityio
