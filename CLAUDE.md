@@ -31,7 +31,9 @@ pnpm test:e2e -g "ExternalLink opens a new tab"        # one test by name
 src/app/        # layout, page, 404, globals.css (design tokens)
 src/components/ # UI components, read text from content.ts
 src/content.ts  # all copy and links
-src/lib/        # client logic (theme)
+src/lib/        # client logic (theme) and build-time loaders (trips.ts reads content/trips/)
+content/trips/  # one folder per trip: index.md + photos, validated at build time
+scripts/        # copy-trip-photos.mjs runs before dev and build
 tests/          # Playwright specs and helpers
 ```
 

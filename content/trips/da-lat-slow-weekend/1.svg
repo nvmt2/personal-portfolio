@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" width="1200" height="900" role="img" aria-label="Illustration of soft green hills in morning light">
+<defs><linearGradient id="s" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#cfe8d5"/><stop offset="1" stop-color="#f1f6e4"/></linearGradient></defs>
+<rect width="1200" height="900" fill="url(#s)"/>
+<circle cx="734" cy="241" r="70" fill="#fff7c2" opacity="0.9"/>
+<g transform="translate(0 300)"><path d="M0 600 L0 395 L60 377 L120 326 L180 401 L240 422 L300 339 L360 323 L420 317 L480 305 L540 402 L600 374 L660 315 L720 356 L780 392 L840 370 L900 344 L960 327 L1020 367 L1080 354 L1140 306 L1200 366 L1200 600 Z" fill="#8fb58a"/><path d="M0 600 L0 467 L80 454 L160 451 L240 469 L320 467 L400 510 L480 477 L560 441 L640 507 L720 473 L800 515 L880 479 L960 494 L1040 461 L1120 452 L1200 461 L1200 600 Z" fill="#5c8a62"/></g>
+<rect y="780" width="1200" height="120" fill="#5c8a62"/>
+</svg>
