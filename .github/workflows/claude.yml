@@ -1,0 +1,39 @@
+name: Claude
+
+on:
+  issue_comment:
+    types: [created]
+  pull_request_review_comment:
+    types: [created]
+  pull_request_review:
+    types: [submitted]
+  issues:
+    types: [opened]
+
+jobs:
+  claude:
+    if: |
+      contains(fromJSON('["toinguyen-agilityio","huypham-agilityio"]'), github.actor) &&
+      ((github.event_name == 'issue_comment' && contains(github.event.comment.body, '@claude')) ||
+      (github.event_name == 'pull_request_review_comment' && contains(github.event.comment.body, '@claude')) ||
+      (github.event_name == 'pull_request_review' && contains(github.event.review.body, '@claude')) ||
+      (github.event_name == 'issues' && (contains(github.event.issue.body, '@claude') || contains(github.event.issue.title, '@claude'))))
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
+      id-token: write
+      actions: read
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          fetch-depth: 1
+
+      - uses: anthropics/claude-code-action@925afb53776cf1a2b738c6bdbed37b4d4000ef13 # v1
+        with:
+          # Each user pays with their own token; an unknown or missing token resolves to ''
+          claude_code_oauth_token: ${{
+            github.actor == 'toinguyen-agilityio' && secrets.CLAUDE_CODE_OAUTH_TOKEN ||
+            github.actor == 'huypham-agilityio' && secrets.CLAUDE_CODE_OAUTH_MAINTAINER_TOKEN ||
+            '' }}

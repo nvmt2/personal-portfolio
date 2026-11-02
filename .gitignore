@@ -1,0 +1,24 @@
+# Personal Claude Code config (do not commit)
+CLAUDE.local.md
+.claude/settings.local.json
+
+# Secrets
+.env
+.env.*
+
+# Dependencies and build output
+node_modules/
+.next/
+out/
+next-env.d.ts
+*.tsbuildinfo
+
+# Test output
+playwright-report/
+test-results/
+
+# Local test recordings
+screenshot/
+
+# Local Claude agent worktrees
+.claude/worktrees/

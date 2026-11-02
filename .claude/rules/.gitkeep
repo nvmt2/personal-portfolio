@@ -1,0 +1,1 @@
+# Path-scoped rules. Every .md file in this folder is loaded as a rule, so the README lives in .claude/README.md.
