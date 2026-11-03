@@ -1,6 +1,8 @@
 # Hooks
 
-Scripts that Claude Code runs on events such as `PreToolUse`, `PostToolUse` or `Stop`. No hooks yet.
+Scripts that Claude Code runs on events such as `PreToolUse`, `PostToolUse` or `Stop`. Current hooks:
+
+- `auto-name.sh` (`UserPromptSubmit`): if the session has no name yet, sets it to `project:branch · MMDD-HHMM`. Needs `jq`.
 
 ## Add a hook
 
